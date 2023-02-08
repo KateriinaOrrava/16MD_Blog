@@ -16,7 +16,12 @@ export type Post = {
     title:string;
     descr:string;
     img:string;
-    comments: string[];
+    comments: 
+    [
+        {userImg:string,
+        userName:string,
+        userComment:string}
+    ];
 }
 
 type HeaderProps = {
@@ -44,8 +49,10 @@ const BlogPosts = () => {
 
     return (
         <div className={styles.postSection}>
-            {data.map(({id, title, descr, img, comments}, index) => (
-                <Link to={`/post/${id}`} key={Math.random().toString()}>
+            {data.map(({id, title, descr, img, comments}) => (
+                <Link to={`/posts/${id}`} 
+                title={id.toString()}
+                key={Math.random().toString()}>
                     <div className={styles.postWrapper}key={Math.random().toString()}>
                         <div className="postImage" key={Math.random().toString()}>
                             <img src={img} title={title}/>
@@ -54,12 +61,6 @@ const BlogPosts = () => {
                             <h3 className="title" key={Math.random().toString()}>{title}</h3>
                             <p className="text" key={Math.random().toString()}>{descr}</p>
                             <span className="readMore" key={Math.random().toString()}>Read more</span>
-                        </div>
-                        <div key={Math.random().toString()}>
-                            <h4 key={Math.random().toString()} >Comments</h4>
-                            {comments.map((com) => (
-                                <p key={Math.random().toString()}>{com}</p>
-                            ))}
                         </div>
                     </div>
                 </Link>
@@ -70,69 +71,3 @@ const BlogPosts = () => {
   
 }
 export default BlogPosts;
-    // const [postsQuery, commentsQuery] = useQueries({
-    //     queries: [
-    //         {
-    //           queryKey: ['posts'],
-    //           queryFn: () =>
-    //             axios
-    //               .get('http://localhost:1000/blogs')
-    //               .then((res) => res.data),
-    //         },
-      
-    //         {
-    //           queryKey: ['comments'],
-    //           queryFn: () =>
-    //             axios
-    //               .get('http://localhost:1000/comments')
-    //               .then((res) => res.data),
-    //         },
-    //       ],
-    // })
-
-    // if (postsQuery.isLoading) return 'Loading Posts...';
-    // if (commentsQuery.isLoading) return 'Loading Users...';
-  
-    // if (postsQuery.error)
-    //   return 'An error has occurred: ' + postsQuery.error;
-    // if (commentsQuery.error)
-    //   return 'An error has occurred: ' + commentsQuery.error;
-
-    //   console.log('posts', postsQuery.data)
-    //   console.log('comments', commentsQuery.data)
-    //   console.log('comments', commentsQuery.data[0].body)
-    //   console.log({})
-
-    //   return (
-    //     <div>
-    //       <h2>Posts</h2>
-    //       {postsQuery.data.map((post:Post) => {
-    //         return (
-    //           <div className={styles.postWrapper} key={post.id}>
-    //             <div className="postImage">
-    //                   <img src={post.img} title={post.title}/>
-    //             </div>
-    //             <div className="postText">
-    //                 <h3 className="title">{post.title}</h3>
-    //                 <p className="text">{post.descr}</p>
-    //                 <span className="readMore">Read more</span>
-    //             </div>
-    //             <div className="comments">
-    //                 <h1>comments</h1>
-    //                 {commentsQuery?.data.filter((comment))}
-    //             </div>
-    //           </div>
-    //         );
-    //       })}
-    
-    //       <h2>Users</h2>
-    //       {/* {usersQuery.data?.map((user) => {
-    //         return (
-    //           <div key={user.id} style={{ display: 'flex' }}>
-    //             <span>{user.id}-&nbsp;</span>
-    //             <div>{user.name}</div>
-    //           </div>
-    //         );
-    //       })} */}
-    //     </div>
-    //   );

@@ -32,7 +32,8 @@ function App() {
       <Routes>
           <Route path="/" index element={<Home />}/>
           <Route path='/posts' element={<BlogPosts />} />
-          <Route path="/post/:id" element={<SinglePost />} />
+          <Route path="/posts/:id" element={<SinglePost />} />
+          {/* <Route path="/post/:id/:comments" element={<SinglePost />} /> */}
           <Route path="/about" element={<About />} />
           <Route path="/add" element={<AddPost />} />
           <Route path="*" element={<h1>404 page not found</h1>} />

@@ -1,0 +1,34 @@
+.post_wrapper__info{
+    background-color: bisque;
+}
+.post_wrapper__comments{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+
+    gap:20px;
+}
+.post_wrapper__comments img{
+    width: 100px;
+    height: 100px;
+}
+.post_wrapper__commentsSingle{
+    display: flex;
+    gap:40px;
+    justify-content: left;
+    align-items: center; 
+    background-color: bisque;
+}
+.post_wrapper__commentsSingle__info{
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: flex-start
+}
+.post_wrapper__commentsSingle__name{
+    font-weight: 700;
+    
+}
+.post_wrapper__commentsSingle__info{
+    
+}

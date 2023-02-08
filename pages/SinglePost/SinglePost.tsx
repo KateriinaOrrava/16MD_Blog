@@ -2,7 +2,8 @@ import {useParams, redirect, useNavigate} from 'react-router-dom';
 import { Post } from '../BlogPosts/BlogPosts';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Routes, Route, NavLink, Link } from 'react-router-dom';
-import { useState } from 'react';
+import AddNewComment from '../AddNewComment/AddNewComment';
+import styles from './SinglePost.module.css'
 
 import axios from 'axios';
 
@@ -23,21 +24,33 @@ const SinglePost= () => {
       if (!data) {
         return null;
       }
-console.log(data)
+
+console.log(data.comments[1])
+
     return (
-        <div>
-            <h1>{data.title}</h1>
-            <img src={data.img} alt={data.title} />
-            <p>{data.descr}</p>
-            <div>
-                 <h4>Comments</h4>
-                 {data.comments.map((c)=> (
-                    <div>
-                        <img src="https://freesvg.org/storage/img/thumb/1675329967Roblox%20Face.png" alt="" />
-                        <p>{c}</p>
-                    </div>
-                 ))}
+        <div className={styles.post_wrapper}>
+            <div className={styles.post_wrapper__info}>
+                <h1>{data.title}</h1>
+                <img src={data.img} alt={data.title} />
+                <p>{data.descr}</p>
+                <p>{data.comments.toString()}</p>
             </div>
+                <br/>
+                <div className={styles.post_wrapper__comments}>
+                    <h4>Comments</h4>
+                    {data.comments.map((el) => (
+                        <div key={Math.random()} className={styles.post_wrapper__commentsSingle}>
+                            <img src={el.userImg} alt="" />
+                            <div  className={styles.post_wrapper__commentsSingle__info}>
+                                <p   className={styles.post_wrapper__commentsSingle__name}>{el.userName}</p>
+                                <p   className={styles.post_wrapper__commentsSingle__info}>{el.userComment}</p>
+                            </div>
+
+                        </div>
+                    ))}   
+                   
+            </div>
+        <div><AddNewComment id={data.id}/></div>
         </div>
     )
 }
