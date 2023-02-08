@@ -2,6 +2,7 @@ import { useState } from "react"
 import axios from "axios"
 import { useQuery, useMutation } from "@tanstack/react-query"
 import { Post } from '../BlogPosts/BlogPosts';
+import styles from './AddPost.module.css'
 
 
 
@@ -32,21 +33,22 @@ const AddPost = () => {
 
     return (<>
     <h1>Add new post</h1>
-    <form onSubmit={onSubmit}>
+    <div >
+    <form onSubmit={onSubmit} className={styles.newPostInputForm__wrapper}>
         <label>
             Title:
             <input 
                 type="text" 
                 name="title"
                 value={title} 
-                onChange={(e)=>setPostTitle(e.target.value)}/>
+                onChange={(e)=>setPostTitle(e.target.value)} required/>
         </label>
         <label>
             Image:
             <input type="text" 
             name="image"
             value={img} 
-            onChange={(e)=>setPostImage(e.target.value)}/>
+            onChange={(e)=>setPostImage(e.target.value)} required/>
         </label>
         <label>
             Description:
@@ -54,10 +56,11 @@ const AddPost = () => {
             type="text" 
             name="description"
             value={descr} 
-            onChange={(e)=>setPostDescr(e.target.value)}/>
+            onChange={(e)=>setPostDescr(e.target.value)} required/>
         </label>
         <input type="submit" value="Submit" />
     </form>
+    </div>
     </>
     )
 }

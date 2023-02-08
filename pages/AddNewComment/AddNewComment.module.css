@@ -1,0 +1,18 @@
+.add_new_comment{
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    width: 100%;
+    gap:20px;
+}
+.add_new_comment_wrapper{
+    display:flex;
+    justify-content: center;
+    align-content: left;
+    flex-direction: column;
+    width: 100%;
+}
+label{
+
+}

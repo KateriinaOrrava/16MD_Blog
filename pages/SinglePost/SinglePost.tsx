@@ -25,15 +25,12 @@ const SinglePost= () => {
         return null;
       }
 
-console.log(data.comments[1])
-
     return (
         <div className={styles.post_wrapper}>
             <div className={styles.post_wrapper__info}>
                 <h1>{data.title}</h1>
                 <img src={data.img} alt={data.title} />
                 <p>{data.descr}</p>
-                <p>{data.comments.toString()}</p>
             </div>
                 <br/>
                 <div className={styles.post_wrapper__comments}>
@@ -48,9 +45,8 @@ console.log(data.comments[1])
 
                         </div>
                     ))}   
-                   
-            </div>
-        <div><AddNewComment id={data.id}/></div>
+                </div>
+                <AddNewComment id={data.id}/>
         </div>
     )
 }
