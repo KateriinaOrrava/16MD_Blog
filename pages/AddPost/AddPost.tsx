@@ -3,19 +3,27 @@ import axios from "axios"
 import { useQuery, useMutation } from "@tanstack/react-query"
 import { Post } from '../BlogPosts/BlogPosts';
 import styles from './AddPost.module.css'
+import {useParams, redirect, useNavigate} from 'react-router-dom';
 
 
 
 
 
 const AddPost = () => {
+
+    const navigate = useNavigate();
+
+    const navigateToPosts = () => {
+        navigate('/posts');
+    };
+
     const [img, setPostImage]=useState('')
     const [title, setPostTitle]=useState('')
     const [descr, setPostDescr]=useState('')
     //@ts-ignore
     const [comments, setNewComments]=useState({ "userImg": "", "userName": "", "userComment": "", })
 
-    const addNewPostElement = (post:Omit<Post,"id">) => {
+    const addNewPostElement = async (post:Omit<Post,"id">) => {
         return axios.post('http://localhost:1000/blogs', post)
     }
 
@@ -28,8 +36,12 @@ const AddPost = () => {
     const onSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault()
         let post = {title, img, descr, comments}
-        mutate(post)
-  }
+        //@ts-ignore
+        mutate(post);
+        setPostImage('')
+        setPostTitle('')
+        setPostDescr('')
+    }
 
     return (<>
     <h1>Add new post</h1>
@@ -60,6 +72,7 @@ const AddPost = () => {
         </label>
         <input type="submit" value="Submit" />
     </form>
+    <button onClick={navigateToPosts}>"Let's get back to all posts?"</button>
     </div>
     </>
     )

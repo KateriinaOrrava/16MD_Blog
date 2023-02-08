@@ -1,7 +1,6 @@
-import {useParams, redirect, useNavigate} from 'react-router-dom';
+import {useParams, redirect } from 'react-router-dom';
 import { Post } from '../BlogPosts/BlogPosts';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { Routes, Route, NavLink, Link } from 'react-router-dom';
 import AddNewComment from '../AddNewComment/AddNewComment';
 import styles from './SinglePost.module.css'
 
@@ -13,6 +12,9 @@ const getOnePost = async (id:string) => {
     return data;
 }
 const SinglePost= () => {
+
+    
+
     const { id } = useParams<{id: string}>()
     const { data, isLoading } = useQuery<Post>(["onePost", id], () => getOnePost(id!))
 
@@ -42,10 +44,10 @@ const SinglePost= () => {
                                 <p   className={styles.post_wrapper__commentsSingle__name}>{el.userName}</p>
                                 <p   className={styles.post_wrapper__commentsSingle__info}>{el.userComment}</p>
                             </div>
-
                         </div>
                     ))}   
                 </div>
+
                 <AddNewComment id={data.id}/>
         </div>
     )
