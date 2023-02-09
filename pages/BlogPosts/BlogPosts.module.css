@@ -1,16 +1,35 @@
 .postSection{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(300px, 400px));
     grid-template-rows: 1fr;
     justify-content: center;
     align-items: center;
     gap:40px;
-
     padding:20px;
+    justify-items: stretch;
+    align-items: stretch;
 }
 .postWrapper{
     background-color: rgb(246, 227, 246); 
+    height: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.postWrapper:hover{
+    background-color: rgb(241, 176, 241); 
+    height: 100%;
+}
+a.postWrapper{
+    background-color: rgb(246, 227, 246); 
+    height: 100%;
 }
 .postImage_img {
     width: 100%;
+
+}
+.postText{
+    display:flex;
+    flex-direction: column;
+
 }

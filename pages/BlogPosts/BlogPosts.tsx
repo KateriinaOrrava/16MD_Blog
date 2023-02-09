@@ -52,24 +52,28 @@ const BlogPosts = () => {
 
 
     return (
-        <div className={styles.postSection}>
-            {data.map(({id, title, descr, img}) => (
-                <Link to={`/blogs/${id}`} 
-                title={id.toString()}
-                key={Math.random().toString()}>
-                    <div className={styles.postWrapper}key={Math.random().toString()}>
-                        <div key={Math.random().toString()}>
-                            <img src={img} title={title}  className={styles.postImage_img}/>
+    <div className={styles.page_info_wrapper}>
+        <h1>POSTS</h1>
+            <div className={styles.postSection}>
+                
+                {data.map(({id, title, descr, img}) => (
+                    <Link to={`/blogs/${id}`} 
+                    title={id.toString()}
+                    key={Math.random().toString()}>
+                        <div className={styles.postWrapper}key={Math.random().toString()}>
+                            <div key={Math.random().toString()}>
+                                <img src={img} title={title}  className={styles.postImage_img}/>
+                            </div>
+                            <div className={styles.postText} key={Math.random().toString()}>
+                                <h3 className="title" key={Math.random().toString()}>{title}</h3>
+                                <p className="text" key={Math.random().toString()}>{descr}</p>
+                                <span className="readMore" key={Math.random().toString()}>Read more</span>
+                            </div>
                         </div>
-                        <div className="postText" key={Math.random().toString()}>
-                            <h3 className="title" key={Math.random().toString()}>{title}</h3>
-                            <p className="text" key={Math.random().toString()}>{descr}</p>
-                            <span className="readMore" key={Math.random().toString()}>Read more</span>
-                        </div>
-                    </div>
-                </Link>
-            ))}
-            
+                    </Link>
+                ))}
+                
+            </div>
         </div>
     )
   
