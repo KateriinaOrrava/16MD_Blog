@@ -10,30 +10,32 @@ type BlogPostEditModalForm = {
 }
 
 const BlogPostEditModalForm = ( info:Blogs ) => {
-    console.log(info)
-    console.log(info.id)
-    console.log(info.title)
+    const [title, setTitle] = useState('')
+    const [img, setImg] = useState('')
+    const [descr, setDescr] = useState('')
 
     const refresh = () => {
         window.location.reload()
     }
     const handleSubmit = () => {
         console.log('button submitted')
+        console.log(editedBlogPost)
+        updateBlog(editedBlogPost)
     }
     
+    const editedBlogPost = {
+        "title": title,
+        "descr": descr,
+        "img": img
+    }
 
-//       const updateBlog = useMutation(
-//         (updatedBlog) => axios.put<Blogs>(`http://localhost:1000/blogs/${info.id}`, updatedBlog),
-//       );
-      
-//       if (status === "loading") return <p>Loading blog...</p>;
-//     if (status === "error") return <p>Error loading blog</p>;
-// const [formData, setFormData] = useState({
-//         title: "",
-//         descr: "",
-//         img: "",
-//       });
+    //   const updateBlog = useMutation(
+    //     (updatedBlog) => axios.put<Blogs>(`http://localhost:1000/blogs/${info.id}`, editedBlogPost),
+    //   );
 
+      const updateBlog = async (post:Omit<Blogs,"id">) => {        
+        return axios.put(`http://localhost:1000/blogs/${info.id}`, editedBlogPost)
+    }
 
 
     return (
@@ -46,16 +48,16 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
                         Title:
                         <input 
                             type="text" 
-                            value={info.title} 
-                            onChange={handleChange}
+                            
+                            onChange={(e)=> setTitle(e.target.value)}
                             required/>
                     </label>
                     <label>
                         Image:
                         <input type="text" 
                         name="image"
-                        value={info.img} 
-                        onChange={handleChange}
+                        
+                        onChange={(e)=> setImg(e.target.value)}
                         required/>
                     </label>
                     <label>
@@ -63,8 +65,8 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
                         <input 
                         type="text" 
                         name="description"
-                        value={info.descr} 
-                        onChange={handleChange}
+                        
+                        onChange={(e)=> setDescr(e.target.value)}
                         required/>
                     </label>
                     <input 
