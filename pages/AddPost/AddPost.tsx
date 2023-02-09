@@ -35,6 +35,7 @@ const AddPost = () => {
         setPostImage('')
         setPostTitle('')
         setPostDescr('')
+        navigateToPosts()
     }
 
     return (<>

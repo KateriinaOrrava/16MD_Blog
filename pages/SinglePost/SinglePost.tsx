@@ -7,6 +7,7 @@ import AddNewComment from '../AddNewComment/AddNewComment';
 import { useParams, redirect, useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient, useMutation} from '@tanstack/react-query';
 import BlogPostEditModalForm from "../BlogPostEditModalForm/BlogPostEditModalForm";
+import GetComments from '../GetComments/GetComments';
 
 const getOnePost = async (id: string) => {
 
@@ -71,18 +72,10 @@ const SinglePost = () => {
       <br />
       <div className={styles.post_wrapper__comments}>
         <h4>Comments</h4>
-        {/* {data.comments.map((el) => (
-                        <div key={Math.random()} className={styles.post_wrapper__commentsSingle}>
-                            <img src={el.userImg} alt="" />
-                            <div  className={styles.post_wrapper__commentsSingle__info}>
-                                <p   className={styles.post_wrapper__commentsSingle__name}>{el.userName}</p>
-                                <p   className={styles.post_wrapper__commentsSingle__info}>{el.userComment}</p>
-                            </div>
-                        </div>
-                    ))}    */}
       </div>
+      <GetComments/>
 
-      <AddNewComment id={data.id} />
+      <AddNewComment />
       
       {editOpen && <BlogPostEditModalForm  {...data}/>}
     </div>
