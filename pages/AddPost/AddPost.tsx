@@ -1,29 +1,23 @@
-import { useState } from "react"
 import axios from "axios"
-import { useQuery, useMutation } from "@tanstack/react-query"
-import { Post } from '../BlogPosts/BlogPosts';
+import { useState } from "react"
 import styles from './AddPost.module.css'
-import {useParams, redirect, useNavigate} from 'react-router-dom';
-
-
-
-
+import { Blogs } from '../BlogPosts/BlogPosts';
+import { useNavigate } from 'react-router-dom';
+import { useQuery, useMutation } from "@tanstack/react-query"
 
 const AddPost = () => {
-
+    
     const navigate = useNavigate();
 
     const navigateToPosts = () => {
-        navigate('/posts');
+        navigate('/blogs');
     };
 
     const [img, setPostImage]=useState('')
     const [title, setPostTitle]=useState('')
     const [descr, setPostDescr]=useState('')
-    //@ts-ignore
-    const [comments, setNewComments]=useState({ "userImg": "", "userName": "", "userComment": "", })
 
-    const addNewPostElement = async (post:Omit<Post,"id">) => {
+    const addNewPostElement = async (post:Omit<Blogs,"id">) => {        
         return axios.post('http://localhost:1000/blogs', post)
     }
 
@@ -31,12 +25,12 @@ const AddPost = () => {
         return useMutation(addNewPostElement)
     }
 
-    const {mutate} = useNewPostData();
+    const { mutate } = useNewPostData();
 
-    const onSubmit = (e: { preventDefault: () => void }) => {
+    const onSubmit = (e: { preventDefault: () => void }) => {        
+
         e.preventDefault()
-        let post = {title, img, descr, comments}
-        //@ts-ignore
+        let post = {title, img, descr}
         mutate(post);
         setPostImage('')
         setPostTitle('')

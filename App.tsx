@@ -9,9 +9,9 @@ import About from './pages/About/About';
 import { NavLink } from 'react-router-dom';
 import AddPost from './pages/AddPost/AddPost';
 import SinglePost from "./pages/SinglePost/SinglePost";
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-
   return (
     <div>
       
@@ -19,7 +19,7 @@ function App() {
         <nav>
           <div className='navigation_container__nav_links'>
             <NavLink to="/">Home</NavLink> 
-            <NavLink to="/posts">Posts</NavLink>
+            <NavLink to="/blogs">Posts</NavLink>
             <NavLink to="/about">About</NavLink>
             <NavLink to="/add">Add Post</NavLink>
           </div>
@@ -29,9 +29,10 @@ function App() {
 
       <Routes>
           <Route path="/" index element={<Home />}/>
-          <Route path='/posts' element={<BlogPosts />} />
-          <Route path="/posts/:id" element={<SinglePost />} />
-          <Route path="/posts/:category" element={<SinglePost />} />
+          <Route path='/blogs' element={<BlogPosts />} />
+          <Route path="/blogs/:id" element={<SinglePost />} />
+          <Route path="/comments" element={<SinglePost />} />
+          <Route path="/comments/:id" element={<SinglePost />} />
           <Route path="/about" element={<About />} />
           <Route path="/add" element={<AddPost />} />
           <Route path="*" element={<h1>404 page not found</h1>} />

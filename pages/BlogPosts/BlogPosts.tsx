@@ -11,18 +11,22 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import axios from "axios";
 import styles from "./BlogPosts.module.css"
 
-export type Post = {
-    id:number;
-    title:string;
-    descr:string;
-    img:string;
-    comments: 
-    [
-        {userImg:string,
+export type Posts = {
+    blogs:Blogs[]
+    comments: Comments[]
+};
+export type Blogs = 
+        {id:number;
+        title:string;
+        descr:string;
+        img:string;}
+
+export type Comments = 
+        {id:number;
+        userImg:string,
         userName:string,
-        userComment:string}
-    ];
-}
+        userComment:string;
+        userId:string}
 
 type HeaderProps = {
     children: React.ReactNode;
@@ -36,7 +40,7 @@ type HeaderProps = {
 
 const BlogPosts = () => {
 
-  const { data, isLoading } = useQuery<Post[]>(['blogposts'], getAllPosts)
+  const { data, isLoading } = useQuery<Blogs[]>(['blogposts'], getAllPosts)
 
     if (isLoading) {
         return <h1>Loading...</h1>
@@ -49,13 +53,13 @@ const BlogPosts = () => {
 
     return (
         <div className={styles.postSection}>
-            {data.map(({id, title, descr, img, comments}) => (
-                <Link to={`/posts/${id}`} 
+            {data.map(({id, title, descr, img}) => (
+                <Link to={`/blogs/${id}`} 
                 title={id.toString()}
                 key={Math.random().toString()}>
                     <div className={styles.postWrapper}key={Math.random().toString()}>
-                        <div className="postImage" key={Math.random().toString()}>
-                            <img src={img} title={title}/>
+                        <div key={Math.random().toString()}>
+                            <img src={img} title={title}  className={styles.postImage_img}/>
                         </div>
                         <div className="postText" key={Math.random().toString()}>
                             <h3 className="title" key={Math.random().toString()}>{title}</h3>

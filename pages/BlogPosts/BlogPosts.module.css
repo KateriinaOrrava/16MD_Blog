@@ -1,6 +1,7 @@
 .postSection{
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
     justify-content: center;
     align-items: center;
     gap:40px;
@@ -8,5 +9,8 @@
     padding:20px;
 }
 .postWrapper{
-    background-color: blanchedalmond; 
+    background-color: rgb(246, 227, 246); 
+}
+.postImage_img {
+    width: 100%;
 }
