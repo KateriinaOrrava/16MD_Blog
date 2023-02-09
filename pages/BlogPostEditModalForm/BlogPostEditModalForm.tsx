@@ -1,6 +1,6 @@
-import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation } from "@tanstack/react-query"
 import styles from './BlogPostEditModalForm.module.css'
-import { Blogs, Posts } from '../BlogPosts/BlogPosts';
+import { Blogs } from '../BlogPosts/BlogPosts';
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -14,28 +14,34 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
     const [img, setImg] = useState('')
     const [descr, setDescr] = useState('')
 
+    const updateBlog = async (post:Omit<Blogs,"id">) => {        
+        return axios.put(`http://localhost:1000/blogs/${info.id}`, post)
+    }
+
+    const useNewPostData =()=>{
+        return useMutation(updateBlog)
+    }
+
+    const { mutate } = useNewPostData();
+
+    const handleSubmit = (e: { preventDefault: () => void }) => {
+        e.preventDefault()
+        const editedBlogPost = {
+        "title": title,
+        "descr": descr,
+        "img": img}
+        mutate(editedBlogPost)
+        refresh()
+        // console.log('button submitted')
+        // console.log(editedBlogPost)
+        // updateBlog(editedBlogPost)
+    }
+    
+    
     const refresh = () => {
         window.location.reload()
     }
-    const handleSubmit = () => {
-        console.log('button submitted')
-        console.log(editedBlogPost)
-        updateBlog(editedBlogPost)
-    }
-    
-    const editedBlogPost = {
-        "title": title,
-        "descr": descr,
-        "img": img
-    }
 
-    //   const updateBlog = useMutation(
-    //     (updatedBlog) => axios.put<Blogs>(`http://localhost:1000/blogs/${info.id}`, editedBlogPost),
-    //   );
-
-      const updateBlog = async (post:Omit<Blogs,"id">) => {        
-        return axios.put(`http://localhost:1000/blogs/${info.id}`, editedBlogPost)
-    }
 
 
     return (
