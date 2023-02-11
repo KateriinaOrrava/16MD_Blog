@@ -7,13 +7,14 @@ import localforage from "localforage";
 import styles from './GetComments.module.css'
 
 const GetComments = () => {
-
+    const { id } = useParams<{id: string}>()
+    
     const getComments = async (id:string) => {
         const { data } = await axios.get(`http://localhost:1000/comments?postId=${id}`)
         return data;
     }
 
-    const { id } = useParams<{id: string}>()
+
     const { data, isLoading } = useQuery<Comments[]>(["getComments", id], () => getComments(id!))
 
     if (isLoading) {

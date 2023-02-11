@@ -11,8 +11,6 @@ import GetComments from '../GetComments/GetComments';
 
 const getOnePost = async (id: string) => {
 
-
-
   const { data } = await axios.get(`http://localhost:1000/blogs/${id}`);
   return data;
 };
@@ -23,6 +21,7 @@ const SinglePost = () => {
   const [editOpen, setEditOpen] = useState(false);
 
   const deletePost = useMutation((id: number) => {
+    navigateToPosts();
     return axios.delete(`http://localhost:1000/blogs/${id}`);
   });
 
@@ -41,7 +40,6 @@ const SinglePost = () => {
   }
 
   if (!data) {
-    navigateToPosts();
     return null;
   }
   console.log(data);

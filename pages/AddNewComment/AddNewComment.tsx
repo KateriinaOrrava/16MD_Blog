@@ -1,9 +1,9 @@
-import {useParams, redirect } from 'react-router-dom';
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import styles from './AddNewComment.module.css'
+import { useParams } from 'react-router-dom';
 import { useState } from "react"
 import axios from "axios"
-import { useQuery, useMutation } from "@tanstack/react-query"
-import { Comments } from '../BlogPosts/BlogPosts';
-import styles from './AddNewComment.module.css'
+
 type Comment = {
     userImg: string;
     userName: string;
@@ -11,22 +11,21 @@ type Comment = {
     postId: number;
 }
 const AddNewComment = () => {
-    const { id } = useParams<{id: string}>()
-
-    const [userImg, setUserImg]=useState('');
-    const [userName, setUserName]=useState('');
-    const [userComment, setUserComment]=useState('');
-    const [postId, setPostId]=useState({id});
+    const { id } = useParams<{id: string}>() 
 
     const addNewComment = async (comment:Comment) => {        
         return axios.post(`http://localhost:1000/comments/`, comment)
     }
 
-    const useNewPostData =()=>{
-        return useMutation(addNewComment)
-    }
+    const queryClient = useQueryClient();
 
-    const { mutate } = useNewPostData();
+    const { mutate } = useMutation(addNewComment, {onSuccess: () => {
+        queryClient.invalidateQueries(["getComments", id]);
+    }})
+
+    const [userImg, setUserImg]=useState('');
+    const [userName, setUserName]=useState('');
+    const [userComment, setUserComment]=useState('');
 
     const onSubmit = (e: { preventDefault: () => void }) => {        
         e.preventDefault()

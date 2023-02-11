@@ -40,7 +40,7 @@ type HeaderProps = {
 
 const BlogPosts = () => {
 
-  const { data, isLoading } = useQuery<Blogs[]>(['blogposts'], getAllPosts)
+  const { data, isLoading } = useQuery<Blogs[]>(['blogposts'],() => getAllPosts())
 
     if (isLoading) {
         return <h1>Loading...</h1>

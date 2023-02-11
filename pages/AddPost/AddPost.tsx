@@ -3,7 +3,7 @@ import { useState } from "react"
 import styles from './AddPost.module.css'
 import { Blogs } from '../BlogPosts/BlogPosts';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useMutation } from "@tanstack/react-query"
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query"
 
 const AddPost = () => {
     
@@ -21,21 +21,21 @@ const AddPost = () => {
         return axios.post('http://localhost:1000/blogs', post)
     }
 
-    const useNewPostData =()=>{
+    const useNewPostData = ( )=>{
         return useMutation(addNewPostElement)
     }
 
     const { mutate } = useNewPostData();
 
     const onSubmit = (e: { preventDefault: () => void }) => {        
-
         e.preventDefault()
         let post = {title, img, descr}
         mutate(post);
+        navigateToPosts()
         setPostImage('')
         setPostTitle('')
         setPostDescr('')
-        navigateToPosts()
+        
     }
 
     return (<>
