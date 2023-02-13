@@ -23,9 +23,9 @@ export type Blogs =
 
 export type Comments = 
         {id:number;
-        userImg:string,
+        userImage:string,
         userName:string,
-        userComment:string;
+        userDescr:string;
         userId:string}
 
 type HeaderProps = {
@@ -34,7 +34,8 @@ type HeaderProps = {
 
 
   const getAllPosts = async () => {
-    const { data } = await axios.get('http://localhost:1000/blogs')
+    const { data } = await axios.get('http://localhost:3004/posts')
+//    const { data } = await axios.get('http://localhost:1000/posts')
     return data
 }
 
@@ -57,7 +58,7 @@ const BlogPosts = () => {
             <div className={styles.postSection}>
                 
                 {data.map(({id, title, descr, img}) => (
-                    <Link to={`/blogs/${id}`} 
+                    <Link to={`/posts/${id}`} 
                     title={id.toString()}
                     key={Math.random().toString()}>
                         <div className={styles.postWrapper}key={Math.random().toString()}>

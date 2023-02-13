@@ -1,20 +1,21 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import styles from './AddNewComment.module.css'
 import { useParams } from 'react-router-dom';
-import { useState } from "react"
+import { useState } from "react";
+import { toast } from 'react-toastify';
 import axios from "axios"
 
 type Comment = {
-    userImg: string;
+    userImage: string;
     userName: string;
-    userComment:string;
+    userDescr:string;
     postId: number;
 }
 const AddNewComment = () => {
     const { id } = useParams<{id: string}>() 
 
     const addNewComment = async (comment:Comment) => {        
-        return axios.post(`http://localhost:1000/comments/`, comment)
+        return axios.post(`http://localhost:3004/addComment`, comment)
     }
 
     const queryClient = useQueryClient();
@@ -23,18 +24,19 @@ const AddNewComment = () => {
         queryClient.invalidateQueries(["getComments", id]);
     }})
 
-    const [userImg, setUserImg]=useState('');
+    const [userImage, setUserImage]=useState('');
     const [userName, setUserName]=useState('');
-    const [userComment, setUserComment]=useState('');
+    const [userDescr, setUserDescr]=useState('');
 
     const onSubmit = (e: { preventDefault: () => void }) => {        
         e.preventDefault()
+        toast('Thank you for sharing your thoughts!')
         let postId:number = parseInt(id!)
-        let comment = {userImg, userName, userComment, postId}
+        let comment = {userImage, userName, userDescr, postId}
         mutate(comment);
-        setUserImg('')
+        setUserImage('')
         setUserName('')
-        setUserComment('')
+        setUserDescr('')
     }
 
     return (
@@ -46,15 +48,17 @@ const AddNewComment = () => {
                 <label>
                     Image:
                     <input 
+                        className={styles.inputField}
                         type="text" 
                         name="userImg"
-                        value={userImg} 
-                        onChange={(e)=>setUserImg(e.target.value)} 
+                        value={userImage} 
+                        onChange={(e)=>setUserImage(e.target.value)} 
                         required/>
                 </label>
                 <label>
                     Enter your name:
                     <input type="text" 
+                    className={styles.inputField}
                     name="userName"
                     value={userName} 
                     onChange={(e)=>setUserName(e.target.value) } 
@@ -63,13 +67,17 @@ const AddNewComment = () => {
                 <label>
                     What do you thik about this post?
                     <input 
+                    className={styles.inputField}
                     type="text" 
                     name="userComment"
-                    value={userComment} 
-                    onChange={(e)=>setUserComment(e.target.value)} 
+                    value={userDescr} 
+                    onChange={(e)=>setUserDescr(e.target.value)} 
                     required/>
                 </label>
-                <input type="submit" value="Submit" />
+                <input 
+                type="submit" 
+                value="Submit" 
+                className={styles.inputSubmit}/>
             </form>
         </div>
     )

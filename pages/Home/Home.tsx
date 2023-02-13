@@ -1,9 +1,25 @@
+
+import styles from "./Home.module.css"
+import home from "./img/home.png"
+import add from "./img/add.png"
+
+import posts from "./img/posts.png"
+import {Link} from "react-router-dom";
+
 const Home = () => {
     return <>
-    <h3>Lorem Ipsum</h3>
-    <h1>You are home</h1>
-    <p>
-        "Nav neviena, kas mīlētu sāpes pašas par sevi, kas meklētu tās un kas vēlētos tās saņemt vienkārši tāpēc, ka tās ir sāpes..."
+    <h1>Lorem Ipsum</h1>
+
+    <div className={styles.container}>
+        <ul>
+
+            <li><Link to="/add"><img src={add} alt="" className={styles.linkImage} /></Link></li>
+            <li><Link to="/about"><img src={add} alt="" className={styles.linkImage} /></Link></li>
+            <li><Link to="/posts"><img src={posts} className={styles.linkImage} alt="" /></Link></li>
+        </ul>
+    </div>
+    <h3>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</h3>
+    <p>"There is no one who loves pain itself, who seeks after it and wants to have it, simply because it is pain..."
     </p>
     </>
 }

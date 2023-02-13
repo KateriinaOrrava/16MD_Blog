@@ -5,12 +5,13 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Comments } from "../BlogPosts/BlogPosts";
 import localforage from "localforage";
 import styles from './GetComments.module.css'
+import Timestamp from "react-timestamp"    
 
 const GetComments = () => {
     const { id } = useParams<{id: string}>()
     
     const getComments = async (id:string) => {
-        const { data } = await axios.get(`http://localhost:1000/comments?postId=${id}`)
+        const { data } = await axios.get(`http://localhost:3004/comments/${id}`)
         return data;
     }
 
@@ -26,25 +27,26 @@ const GetComments = () => {
         return null;
       }
 
-console.log(data)
+// console.log(data)
 
     return (
             <div className={styles.comment_section}>
-                {data.map(({userComment, userName, userImg}) => (
+                        <h4>Comments ({data.length})</h4>
+                {data.map(({userName, userImage, userDescr, id}) => (
                     <div 
                     className={styles.oneCommentWrapper} 
-                    key={userName}>
+                    key={userName + userDescr + id}>
                         <div>
                             <img 
-                            src={userImg} 
+                            src={userImage} 
                             alt={userName} 
                             className={styles.commentImage}/>
+                            
                         </div>
                         <div className={styles.commentAuthorAndComment}>
                             <h4>{userName}</h4>
-                            <p>{userComment}</p>
+                            <p>{userDescr}</p>
                         </div>
-                        
                     </div>
                 ))}
             </div>

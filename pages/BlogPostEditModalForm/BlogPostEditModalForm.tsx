@@ -1,5 +1,6 @@
 import { useQuery, useMutation } from "@tanstack/react-query"
 import styles from './BlogPostEditModalForm.module.css'
+import { toast } from 'react-toastify';        
 import { Blogs } from '../BlogPosts/BlogPosts';
 import { useState } from 'react';
 import axios from 'axios';
@@ -15,7 +16,8 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
     const [descr, setDescr] = useState('')
 
     const updateBlog = async (post:Omit<Blogs,"id">) => {        
-        return axios.put(`http://localhost:1000/blogs/${info.id}`, post)
+        toast('Post had been changed!')
+        return axios.put(`http://localhost:3004/editPost/${info.id}`, post)
     }
 
     const useNewPostData =()=>{
@@ -29,7 +31,8 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
         const editedBlogPost = {
         "title": title,
         "descr": descr,
-        "img": img}
+        "img": img
+        }
         mutate(editedBlogPost)
         refresh()
         // console.log('button submitted')
@@ -54,7 +57,7 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
                         Title:
                         <input 
                             type="text" 
-                            
+                            placeholder={info.title}
                             onChange={(e)=> setTitle(e.target.value)}
                             required/>
                     </label>
@@ -62,7 +65,7 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
                         Image:
                         <input type="text" 
                         name="image"
-                        
+                        placeholder={info.img}
                         onChange={(e)=> setImg(e.target.value)}
                         required/>
                     </label>
@@ -71,7 +74,7 @@ const BlogPostEditModalForm = ( info:Blogs ) => {
                         <input 
                         type="text" 
                         name="description"
-                        
+                        placeholder={info.descr}
                         onChange={(e)=> setDescr(e.target.value)}
                         required/>
                     </label>
