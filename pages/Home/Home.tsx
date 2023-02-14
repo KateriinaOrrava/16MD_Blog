@@ -1,6 +1,6 @@
 
 import styles from "./Home.module.css"
-import home from "./img/home.png"
+import about from "./img/about.png"
 import add from "./img/add.png"
 
 import posts from "./img/posts.png"
@@ -12,9 +12,8 @@ const Home = () => {
 
     <div className={styles.container}>
         <ul>
-
             <li><Link to="/add"><img src={add} alt="" className={styles.linkImage} /></Link></li>
-            <li><Link to="/about"><img src={add} alt="" className={styles.linkImage} /></Link></li>
+            <li><Link to="/about"><img src={about} alt="" className={styles.linkImage} /></Link></li>
             <li><Link to="/posts"><img src={posts} className={styles.linkImage} alt="" /></Link></li>
         </ul>
     </div>
